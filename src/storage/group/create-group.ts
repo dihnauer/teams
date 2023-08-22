@@ -9,7 +9,7 @@ export async function createGroup(newGroup: string) {
     const groupAlreadyExists = storedGroups.includes(newGroup);
 
     if (groupAlreadyExists) {
-      throw new AppError('Group already exists');
+      throw new AppError('O nome da turma já está sendo utilizado');
     }
 
     const storage = JSON.stringify([...storedGroups, newGroup]);
