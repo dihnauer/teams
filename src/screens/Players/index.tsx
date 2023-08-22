@@ -7,6 +7,7 @@ import { AppError } from '@utils/AppError';
 import { addPlayerByGroup } from '@storage/players/add-player-by-group';
 import { getPlayersByGroupAndTeam } from '@storage/players/get-players-by-group-and-team';
 import { PlayerStorageDTO } from '@storage/players/PlayerStorageDTO';
+import { removePlayerByGroup } from '@storage/players/remove-player-by-group';
 
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
@@ -55,6 +56,16 @@ export function Players() {
         Alert.alert('Novo jogador', 'Não foi possível adicionar o jogador');
         console.log(error);
       }
+    }
+  }
+
+  async function handleRemovePlayer(playerName: string) {
+    try {
+      await removePlayerByGroup(playerName, group);
+      await fetchPlayersByTeam();
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Remover jogador', 'Não foi possível remover o jogador');
     }
   }
 
@@ -115,7 +126,10 @@ export function Players() {
         data={players}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <PlayerCard name={item.name} onRemove={() => {}} />
+          <PlayerCard
+            name={item.name}
+            onRemove={() => handleRemovePlayer(item.name)}
+          />
         )}
         ListEmptyComponent={() => (
           <EmptyList message='Não há pessoas nesse time' />
