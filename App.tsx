@@ -8,8 +8,8 @@ import {
 import { ThemeProvider } from 'styled-components';
 import theme from './src/theme';
 
-import { Players } from '@screens/Players';
 import { Loading } from '@components/Loading';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +21,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar translucent backgroundColor='transparent' />
 
-      {fontsLoaded ? <Players /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
